@@ -2,11 +2,13 @@ const container = document.querySelector('.container');
 const makeGrid = document.querySelector('#makeGrid');
 const deleteGrid = document.querySelector('#deleteGrid');
 
+
 function createBlock() {
     const square = document.createElement('div');
     square.style.border = '1px solid black';
+    let randomColor = Math.floor(Math.random()*16777215).toString(16);
     square.addEventListener("mouseenter", function(event) {
-        event.target.style.backgroundColor = 'red';
+        event.target.style.backgroundColor = "#" + randomColor;
     });
     /*square.addEventListener("mouseleave", function(event) {
         event.target.style.backgroundColor = 'white';
@@ -15,6 +17,7 @@ function createBlock() {
 }
 
 function userInput () {
+    eraseGrid();
     let grid = prompt('What size grid would you like? 1-100');
 
     if (isNaN(grid)) {
