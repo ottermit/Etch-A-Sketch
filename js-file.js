@@ -1,5 +1,6 @@
 const container = document.querySelector('.container');
-const clearBtn = document.querySelector('#clearBtn');
+const makeGrid = document.querySelector('#makeGrid');
+const deleteGrid = document.querySelector('#deleteGrid');
 
 function createBlock() {
     const square = document.createElement('div');
@@ -10,13 +11,25 @@ function createBlock() {
     /*square.addEventListener("mouseleave", function(event) {
         event.target.style.backgroundColor = 'white';
     }); */
-    container.appendChild(square);
+    container.appendChild(square).className = "grid-square";
 }
 
-let gridSize = 16;
+function userInput () {
+    let grid = prompt('What size grid would you like? 1-100');
 
-function createGrid() {
-    gridSize = prompt('What size grid would you like?');
+    if (isNaN(grid)) {
+        alert('That is not a valid number.');
+        userInput();
+    } else if (grid > 100 || grid < 1) {
+        alert('Please enter a number between 1-100');
+        userInput();
+    } else {
+        createGrid(grid);
+    }
+}
+
+function createGrid(gridSize) {
+
     let gridTemplateColumns = 'repeat('+gridSize+', 1fr)';
     container.style.gridTemplateColumns = gridTemplateColumns;
     container.style.gridTemplateRows = gridTemplateColumns;
@@ -26,8 +39,12 @@ function createGrid() {
     }
 }
 
-function resetGrid() {
+function eraseGrid() {
+     document.querySelectorAll('.grid-square').forEach(
+         (e) => e.parentNode.removeChild(e));
+    }
 
-}
+makeGrid.addEventListener('click', userInput);
+deleteGrid.addEventListener('click', eraseGrid);
 
 createGrid();
